@@ -8,20 +8,23 @@
   function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
-  /* Split headings into words for the blur-up entrance */
+  /* Split headings into words for the blur-up entrance. Thai has no spaces between words, so it is split by dictionary. */
+  var lang = root.lang || "en";
+  var seg = lang === "th" && window.Intl && Intl.Segmenter ? new Intl.Segmenter("th", { granularity: "word" }) : null;
   $$("[data-split]").forEach(function (el) {
-    var words = el.textContent.trim().split(/\s+/);
-    el.setAttribute("aria-label", el.textContent.trim());
-    el.innerHTML = words.map(function (w, i) {
-      return '<span class="w" aria-hidden="true" style="--wi:' + i + '">' + w + "</span>";
-    }).join(" ");
+    var text = el.textContent.trim();
+    var parts = seg ? Array.from(seg.segment(text), function (s) { return s.segment; }) : text.split(/(\s+)/);
+    var i = 0;
+    el.setAttribute("aria-label", text);
+    el.innerHTML = parts.map(function (w) {
+      return /^\s+$/.test(w) ? " " : '<span class="w" aria-hidden="true" style="--wi:' + i++ + '">' + w + "</span>";
+    }).join("");
   });
 
   /* Header, floating buttons, mobile bar */
   var header = $(".site-header");
   var floatCta = $(".float-cta");
   var bar = $(".enquiry-bar");
-  var lastY = window.scrollY;
 
   /* Scroll-linked pieces */
   var heroMedia = $$(".hero__media, .page-hero__media");
@@ -39,9 +42,6 @@
     var y = window.scrollY;
     var vh = window.innerHeight;
     if (header && !header.classList.contains("site-header--solid")) header.classList.toggle("is-solid", y > 40);
-    if (header) header.classList.toggle("is-hidden", y > 700 && y > lastY + 4 && !document.body.classList.contains("menu-open"));
-    if (header && y < lastY - 4) header.classList.remove("is-hidden");
-    lastY = y;
     var show = y > vh * 0.7;
     if (floatCta) floatCta.classList.toggle("is-visible", show);
     if (bar) bar.classList.toggle("is-visible", show);
@@ -104,7 +104,7 @@
       if (m < 1) return SYMBOL[cur] + Math.round(v / 1000) + "K";
       return SYMBOL[cur] + (m >= 10 ? m.toFixed(1) : m.toFixed(2)).replace(/\.?0+$/, "") + "M";
     }
-    return SYMBOL[cur] + (Math.round(v / 1000) * 1000).toLocaleString("en-US");
+    return SYMBOL[cur] + (Math.round(v / 1000) * 1000).toLocaleString(lang === "ru" ? "ru-RU" : "en-US");
   }
   function setCurrency(cur) {
     $$("[data-thb]").forEach(function (el) {
@@ -231,7 +231,7 @@
   var bro = /[?&]brochure=([\w-]+)/.exec(location.search);
   var msg = $("#f-msg");
   if (bro && msg) {
-    msg.value = "Please send me the brochure and price list.";
+    msg.value = msg.getAttribute("data-brochure");
     var sel = $("#f-villa");
     if (sel) Array.prototype.forEach.call(sel.options, function (o) { if (o.value.toLowerCase() === bro[1]) sel.value = o.value; });
   }
