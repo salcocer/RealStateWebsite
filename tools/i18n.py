@@ -24,7 +24,7 @@ from html import escape, unescape
 from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PAGES = ["index.html", "invest.html", "progress.html", "contact.html",
+PAGES = ["index.html", "progress.html", "contact.html",
          "villas/luna.html", "villas/aria.html", "villas/medina.html"]
 LANGS = {
     "ru": {},

@@ -10,7 +10,6 @@ Plain HTML and CSS with one script. No build step and no framework, so it can be
 | --- | --- |
 | Home | `index.html` |
 | Villa Luna, Aria, Medina | `villas/luna.html`, `villas/aria.html`, `villas/medina.html` |
-| Investment and ownership | `invest.html` |
 | Construction progress | `progress.html` |
 | Contact | `contact.html` |
 | Not found | `404.html` |
@@ -80,15 +79,15 @@ Still placeholders, to confirm or replace before launch:
 
 - Villa status: all three show "Available".
 - Room sizes, pool sizes and furniture package (not published; the pages say "to be confirmed" or "on request").
-- The rental programme's management company, fees and owner-use terms ("to be confirmed" on `invest.html`).
+- The rental programme's management company, fees and owner-use terms (not shown on the site yet).
 - Construction log entries, dates and percentages on `progress.html` and the home page.
 - The materials chips on the villa cards (Wood, Natural stone, Wood and stone) are a reading of the listings' "wood and natural stone" finishes, not a per-villa specification.
 - Contact details: email, phone, WhatsApp and Telegram links are placeholders. Only the Instagram handle is real. Opening hours and "viewings every day" are working copy.
 - Licence number for the footer.
 - All images are illustrations. Replace files in `assets/img/` with photos and renders (keep the file names, or update the `src` attributes). The villa drawings are generic and not drawn from the real plans, and the map pins are placed for legibility, not to scale.
 - Currency rates in `assets/js/main.js` (`RATES`) are approximate.
-- The Russian and Thai translations were written without a native-speaker review. Have both checked before launch, especially the ownership and rental terms on `invest.html`.
-- Freehold for foreign buyers is shown as confirmed. Have a Thai lawyer review the wording on `invest.html` and in the buyer questions before launch.
+- The Russian and Thai translations were written without a native-speaker review. Have both checked before launch, especially the ownership and rental terms.
+- Freehold for foreign buyers is shown as confirmed. Have a Thai lawyer review the wording in the investment section and buyer questions on the home page before launch.
 - Once the site has its final domain, add `<link rel="alternate" hreflang="…">` tags with full URLs so search engines pair the three language versions.
 
 ## Header links
