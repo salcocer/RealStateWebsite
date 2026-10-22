@@ -8,7 +8,7 @@ Plain HTML and CSS with one script. No build step and no framework, so it can be
 
 | Page | File |
 | --- | --- |
-| Home: everything in one page (villas, gallery and map, floor plans, investment, buyer questions, construction progress and updates; the footer holds the contact details) | `index.html` |
+| Home: everything in one page (villas, gallery and map, floor plans, investment, buyer questions, construction progress band and dated updates; the footer holds the contact details) | `index.html` |
 | Villa Luna, Aria, Medina | `villas/luna.html`, `villas/aria.html`, `villas/medina.html` |
 | Not found | `404.html` |
 
@@ -78,7 +78,7 @@ Still placeholders, to confirm or replace before launch:
 - Villa status: all three show "Available".
 - Room sizes, pool sizes and furniture package (not published; the pages say "to be confirmed" or "on request").
 - The rental programme's management company, fees and owner-use terms (not shown on the site yet).
-- Construction log entries, dates and percentages in the progress section of the home page.
+- Construction log entries and dates in the progress section of the home page.
 - The materials chips on the villa cards (Wood, Natural stone, Wood and stone) are a reading of the listings' "wood and natural stone" finishes, not a per-villa specification.
 - Contact details: email, phone, WhatsApp and Telegram links are placeholders. Only the Instagram handle is real. Opening hours and "viewings every day" are working copy.
 - Licence number for the footer.
