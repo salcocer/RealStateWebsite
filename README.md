@@ -8,7 +8,7 @@ Plain HTML and CSS with one script. No build step and no framework, so it can be
 
 | Page | File |
 | --- | --- |
-| Home: everything in one page (villas, gallery and map, floor plans, investment, construction progress and updates, contact form, buyer questions) | `index.html` |
+| Home: everything in one page (villas, gallery and map, floor plans, investment, buyer questions, construction progress and updates; the footer holds the contact details) | `index.html` |
 | Villa Luna, Aria, Medina | `villas/luna.html`, `villas/aria.html`, `villas/medina.html` |
 | Not found | `404.html` |
 
@@ -90,8 +90,4 @@ Still placeholders, to confirm or replace before launch:
 
 ## Header links
 
-The site is one page. The header links (Home, Villas, Progress, Contact) point to sections of `index.html` (`#villas`, `#progress`, `#contact`); from a villa page they lead back to the same sections. Every section of the home page names the header link it belongs to in `data-nav`, and `main.js` moves the underline to that link as you scroll. On a villa page the Villas link stays underlined. Links to a section of the page already open scroll smoothly instead of reloading it. Brochure buttons go to `index.html?brochure=<villa>#contact`, which fills in the contact form.
-
-## Forms
-
-The viewing forms have no backend yet: they confirm in place. They carry `data-netlify="true"`, so on Netlify they will be collected automatically once `action="#"` is removed. On another host, point `action` at a form service such as Formspree.
+The site is one page. The header links (Home, Villas, Progress, Contact) point to sections of `index.html` (`#villas`, `#progress`, `#contact`); from a villa page they lead back to the same sections. Every section of the home page names the header link it belongs to in `data-nav`, and `main.js` moves the underline to that link as you scroll. On a villa page the Villas link stays underlined. Links to a section of the page already open scroll smoothly instead of reloading it. Contact, Schedule A Visit, Book A Viewing and Request Brochure all lead to the footer (`#contact`), which holds the contact details. There is no contact form.

@@ -389,6 +389,12 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .footer__follow a { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(251, 249, 244, .25); display: grid; place-items: center; transition: background-color .3s, color .3s; }
 .footer__follow a:hover { background: var(--card); color: var(--ink); }
 .footer__follow svg { width: 16px; height: 16px; }
+.footer .giant { margin-bottom: 96px; }
+.footer .giant p { color: #bdb0a2; }
+.footer__side { display: grid; gap: 40px; }
+.catch--dark h3 { color: var(--on-dark); }
+.catch--dark .catch__block { color: #bdb0a2; border-color: rgba(251, 249, 244, .16); max-width: none; }
+.catch--dark .catch__block a:hover { color: var(--clay); }
 .footer__photo { border-radius: var(--radius); overflow: hidden; background: var(--clay); }
 .footer__photo img { width: 100%; aspect-ratio: 1 / 1.04; object-fit: cover; }
 .footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 88px; padding: 28px 0; font-size: 14px; color: #bdb0a2; }

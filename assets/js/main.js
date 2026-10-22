@@ -25,6 +25,7 @@
   var header = $(".site-header");
   var floatCta = $(".float-cta");
   var bar = $(".enquiry-bar");
+  var footer = $(".footer");
 
   /* Scroll-linked pieces */
   var heroMedia = $$(".hero__media, .page-hero__media");
@@ -74,7 +75,8 @@
     var vh = window.innerHeight;
     if (header && !header.classList.contains("site-header--solid")) header.classList.toggle("is-solid", y > 40);
     spy();
-    var show = y > vh * 0.7;
+    /* The quick-contact buttons step aside once the footer, which holds the contact details, comes into view. */
+    var show = y > vh * 0.7 && (!footer || footer.getBoundingClientRect().top > vh * 0.75);
     if (floatCta) floatCta.classList.toggle("is-visible", show);
     if (bar) bar.classList.toggle("is-visible", show);
     if (reduce) return;
@@ -247,25 +249,6 @@
       if (e.key === "ArrowRight") show(idx + 1);
       if (e.key === "ArrowLeft") show(idx - 1);
     });
-  }
-
-  /* Viewing forms: no backend yet, so confirm in place. */
-  $$("form[data-viewing]").forEach(function (f) {
-    f.addEventListener("submit", function (e) {
-      if (f.getAttribute("action") && f.getAttribute("action") !== "#") return;
-      e.preventDefault();
-      if (!f.checkValidity()) { f.reportValidity(); return; }
-      f.classList.add("is-sent");
-    });
-  });
-
-  /* Brochure links arrive on the contact page as ?brochure=<villa> */
-  var bro = /[?&]brochure=([\w-]+)/.exec(location.search);
-  var msg = $("#f-msg");
-  if (bro && msg) {
-    msg.value = msg.getAttribute("data-brochure");
-    var sel = $("#f-villa");
-    if (sel) Array.prototype.forEach.call(sel.options, function (o) { if (o.value.toLowerCase() === bro[1]) sel.value = o.value; });
   }
 
   /* Entrances */
