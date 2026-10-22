@@ -38,10 +38,42 @@
     expandItems.forEach(function (it, j) { it.classList.toggle("is-wide", j === i); });
   }
 
+  /* Header links. Each page marks its own link; on the home page the mark follows the section in view
+     (sections name their link in data-nav). Links to the page already open scroll instead of reloading. */
+  var navLinks = $$(".nav a, .mobile-menu__link");
+  var spots = $$("[data-nav]");
+  var spotted = null;
+  function spy() {
+    if (!spots.length) return;
+    var line = window.innerHeight * 0.4, active = spots[0];
+    spots.forEach(function (s) { if (s.getBoundingClientRect().top <= line) active = s; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) active = spots[spots.length - 1];
+    var href = active.getAttribute("data-nav");
+    if (href === spotted) return;
+    spotted = href;
+    navLinks.forEach(function (a) {
+      if (a.getAttribute("href") === href) a.setAttribute("aria-current", href === "index.html" ? "page" : "location");
+      else a.removeAttribute("aria-current");
+    });
+  }
+  function page(path) { return path.replace(/index\.html$/, ""); }
+  navLinks.forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      if (a.host !== location.host || page(a.pathname) !== page(location.pathname)) return;
+      var target = a.hash ? document.getElementById(a.hash.slice(1)) : null;
+      if (a.hash && !target) return;
+      e.preventDefault();
+      if (target) target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+      else window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      if (history.replaceState) history.replaceState(null, "", a.hash || location.pathname);
+    });
+  });
+
   function onScroll() {
     var y = window.scrollY;
     var vh = window.innerHeight;
     if (header && !header.classList.contains("site-header--solid")) header.classList.toggle("is-solid", y > 40);
+    spy();
     var show = y > vh * 0.7;
     if (floatCta) floatCta.classList.toggle("is-visible", show);
     if (bar) bar.classList.toggle("is-visible", show);

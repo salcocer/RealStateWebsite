@@ -124,7 +124,7 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .nav { display: none; gap: 30px; align-items: center; }
 .nav a { font-size: 15px; text-decoration: none; opacity: .92; position: relative; }
 .nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .35s var(--ease); }
-.nav a:hover::after, .nav a[aria-current="page"]::after { transform: scaleX(1); transform-origin: left; }
+.nav a:hover::after, .nav a[aria-current]::after { transform: scaleX(1); transform-origin: left; }
 .header-tools { display: flex; align-items: center; gap: 12px; }
 .switch { display: none; align-items: center; gap: 2px; font-size: 13px; }
 .switch button, .switch a { border: 0; background: none; cursor: pointer; padding: 6px 7px; border-radius: 6px; opacity: .7; text-decoration: none; line-height: inherit; }
@@ -140,6 +140,7 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .mobile-menu { position: fixed; inset: 0; z-index: 70; background: var(--card); padding: 100px var(--gutter) 40px; display: flex; flex-direction: column; gap: 8px; opacity: 0; visibility: hidden; transform: translateY(-12px); transition: opacity .35s, transform .45s var(--ease), visibility .35s; overflow-y: auto; }
 .menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; }
 .mobile-menu__link { font-size: 40px; font-weight: 500; letter-spacing: -.03em; color: var(--ink); text-decoration: none; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.mobile-menu__link[aria-current] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 8px; }
 .mobile-menu .switch { display: flex; margin: 24px 0; color: var(--ink); }
 @media (min-width: 1080px) {
   .nav, .switch { display: flex; }
@@ -438,7 +439,7 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .quote { font-family: var(--font-display); font-style: italic; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.3; color: var(--ink); margin: 32px 0 0; }
 
 .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: s; }
-@media (min-width: 900px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 900px) { .steps { grid-template-columns: repeat(4, 1fr); } .steps--3 { grid-template-columns: repeat(3, 1fr); } }
 .steps li { counter-increment: s; background: var(--card); border-radius: var(--radius); padding: 28px; display: grid; gap: 12px; align-content: start; }
 .steps li::before { content: counter(s, decimal-leading-zero); font-size: 44px; font-weight: 500; letter-spacing: -.04em; color: var(--clay); line-height: 1; }
 .steps h3 { font-size: 21px; }
