@@ -8,10 +8,8 @@ Plain HTML and CSS with one script. No build step and no framework, so it can be
 
 | Page | File |
 | --- | --- |
-| Home | `index.html` |
+| Home: everything in one page (villas, gallery and map, floor plans, investment, construction progress and updates, contact form, buyer questions) | `index.html` |
 | Villa Luna, Aria, Medina | `villas/luna.html`, `villas/aria.html`, `villas/medina.html` |
-| Construction progress | `progress.html` |
-| Contact | `contact.html` |
 | Not found | `404.html` |
 
 Every page except `404.html` also exists in Russian under `ru/` and in Thai under `th/` (for example `ru/villas/luna.html`). The EN / RU / TH links in the header switch between them.
@@ -80,7 +78,7 @@ Still placeholders, to confirm or replace before launch:
 - Villa status: all three show "Available".
 - Room sizes, pool sizes and furniture package (not published; the pages say "to be confirmed" or "on request").
 - The rental programme's management company, fees and owner-use terms (not shown on the site yet).
-- Construction log entries, dates and percentages on `progress.html` and the home page.
+- Construction log entries, dates and percentages in the progress section of the home page.
 - The materials chips on the villa cards (Wood, Natural stone, Wood and stone) are a reading of the listings' "wood and natural stone" finishes, not a per-villa specification.
 - Contact details: email, phone, WhatsApp and Telegram links are placeholders. Only the Instagram handle is real. Opening hours and "viewings every day" are working copy.
 - Licence number for the footer.
@@ -92,7 +90,7 @@ Still placeholders, to confirm or replace before launch:
 
 ## Header links
 
-Each page marks its own header link with `aria-current="page"`, which draws the underline. On the home page the underline follows the section in view instead: every section names the header link it belongs to in `data-nav` (for example `data-nav="index.html#villas"` on the villas, gallery and floor-plan sections), and `main.js` moves the mark as you scroll. A header link to the page already open scrolls to its section instead of reloading the page.
+The site is one page. The header links (Home, Villas, Progress, Contact) point to sections of `index.html` (`#villas`, `#progress`, `#contact`); from a villa page they lead back to the same sections. Every section of the home page names the header link it belongs to in `data-nav`, and `main.js` moves the underline to that link as you scroll. On a villa page the Villas link stays underlined. Links to a section of the page already open scroll smoothly instead of reloading it. Brochure buttons go to `index.html?brochure=<villa>#contact`, which fills in the contact form.
 
 ## Forms
 

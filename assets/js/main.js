@@ -57,9 +57,9 @@
     });
   }
   function page(path) { return path.replace(/index\.html$/, ""); }
-  navLinks.forEach(function (a) {
+  $$("a[href]").forEach(function (a) {
     a.addEventListener("click", function (e) {
-      if (a.host !== location.host || page(a.pathname) !== page(location.pathname)) return;
+      if (a.host !== location.host || page(a.pathname) !== page(location.pathname) || a.search !== location.search) return;
       var target = a.hash ? document.getElementById(a.hash.slice(1)) : null;
       if (a.hash && !target) return;
       e.preventDefault();
