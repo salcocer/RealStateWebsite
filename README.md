@@ -18,7 +18,7 @@ Every page except `404.html` also exists in Russian under `ru/` and in Thai unde
 
 - `assets/css/site.css`: colour and type tokens, components (buttons, chips, stat cards, stacking cards, planner tabs, forms, footer) and page layouts.
 - `assets/js/main.js`: all motion and interaction. Every page still reads correctly without it, and motion is switched off for visitors who ask for reduced motion.
-- `assets/img/`: brand-palette illustrations standing in for photography, floor plans and the illustrated location map. The `-wide` villa drawings have extra sky so page titles sit over it.
+- `assets/img/`: photos and renders (`villa_0` to `villa_6`; the home hero cycles through `villa_0.jpeg`, `villa_1.jpg`, `villa_1.webp`, `villa_4.webp` and `villa_5.webp`, a new photo every 4 seconds. `villa_1.jpg` is a lighter copy of the 8 MB `villa_1.png`), plus brand-palette illustrations still standing in elsewhere, the floor plans and the illustrated location map. The `-wide` villa drawings have extra sky so page titles sit over it.
 - `i18n/ru.json`, `i18n/th.json`: the Russian and Thai text, keyed by the English text.
 - `tools/i18n.py`: builds `ru/` and `th/` from the English pages and the two translation files.
 
@@ -48,7 +48,7 @@ Version 2 follows the layout and motion of the OneArc template much more closely
 - Villas as sticky cards that stack and recede as you scroll.
 - A gallery where one image widens as you scroll or hover, then the floor plans, then a Location section with an illustrated map whose pins take turns lighting up. Then investment cards (rental programme, instalment plan, payback period) and buyer questions; on desktop each of these, like the footer, fills exactly one screen below the header (`section--screen` in `site.css`), and only one answer opens at a time.
 - Floor-plan tabs, a wide parallax band, an inquiry block with contact details beside the form and a buyer questions accordion.
-- A dark footer with large contact links, a header that stays in place, and floating "Book A Viewing / WhatsApp / Brochure" buttons.
+- A dark footer with large contact links and an embedded Google map (for now pinned on the middle of Phuket at 7.95, 98.34; change the `q=` coordinates in the footer `iframe` to point at the villas), a header that stays in place, and floating "Book A Viewing / WhatsApp / Brochure" buttons.
 
 Headings blur in word by word, numbers count up, and hero images move with a light parallax. Type is Jost (headings at weight 500 with tight tracking) with Cormorant Garamond kept for the wordmark and pull quotes. OneArc's testimonials are replaced with buyer questions until Verdi has real reviews.
 
@@ -88,7 +88,7 @@ Still placeholders, to confirm or replace before launch:
 - The materials chips on the villa cards (Wood, Natural stone, Wood and stone) are a reading of the listings' "wood and natural stone" finishes, not a per-villa specification.
 - Contact details: email, phone, WhatsApp and Telegram links are placeholders. Only the Instagram handle is real. Opening hours and "viewings every day" are working copy.
 - Licence number for the footer.
-- All images are illustrations. Replace files in `assets/img/` with photos and renders (keep the file names, or update the `src` attributes). The villa drawings are generic and not drawn from the real plans, and the map pins are placed for legibility, not to scale.
+- The home hero slideshow uses photos and renders; all other images are illustrations. Replace files in `assets/img/` with photos and renders (keep the file names, or update the `src` attributes). The villa drawings are generic and not drawn from the real plans, and the map pins are placed for legibility, not to scale.
 - The currency buttons (฿ / US$ / € / ₽) are commented out in the header and menu, so every price shows in baht. To bring them back, uncomment them in the English pages, restore the saved-currency lines in `assets/js/main.js` and rerun `tools/i18n.py`. Their rates (`RATES`) are approximate.
 - The Russian and Thai translations were written without a native-speaker review. Have both checked before launch, especially the ownership and rental terms.
 - Freehold for foreign buyers is shown as confirmed. Have a Thai lawyer review the wording in the investment section and buyer questions on the home page before launch.

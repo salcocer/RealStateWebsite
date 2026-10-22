@@ -14,7 +14,7 @@
   "US$": "US$",
   "Schedule A Visit": "นัดชมโครงการ",
   "Menu": "เมนู",
-  "A Verdi villa with a hipped terracotta roof, its private pool and palms": "วิลล่า Verdi หลังคาทรงปั้นหยาสีดินเผา พร้อมสระว่ายน้ำส่วนตัวและต้นปาล์ม",
+  "Three Verdi villas with hipped terracotta roofs and palms, behind a wide lawn": "วิลล่า Verdi สามหลัง หลังคาทรงปั้นหยาสีดินเผาและต้นปาล์ม หลังสนามหญ้ากว้าง",
   "Verdi Pool Villas": "Verdi Pool Villas",
   "Discover More": "ดูเพิ่มเติม",
   "Book A Viewing": "นัดชมวิลล่า",
@@ -247,7 +247,6 @@
   "30% at contract, 65% during construction and 5% at transfer.<!-- Follow the build in the <a href=\"../index.html#progress\">progress updates</a>. -->": "30% เมื่อทำสัญญา 65% ระหว่างก่อสร้าง และ 5% เมื่อโอนกรรมสิทธิ์<!-- ติดตามการก่อสร้างได้ที่<a href=\"../index.html#progress\">ความคืบหน้าล่าสุด</a> -->",
   "Come and see the villas": "มาชมวิลล่าด้วยตัวคุณเอง",
   "Viewings every day on site in Thalang, or by video call if you are abroad.": "นัดชมได้ทุกวันที่โครงการในถลาง หรือผ่านวิดีโอคอลหากคุณอยู่ต่างประเทศ",
-  "The villas": "วิลล่าทั้งสามหลัง",
   "Call": "โทร",
   "Email": "อีเมล",
   "Visit": "ที่ตั้ง",
@@ -268,5 +267,6 @@
   "Handover on completion": "ส่งมอบเมื่อก่อสร้างแล้วเสร็จ",
   "Payback period": "ระยะเวลาคืนทุน",
   "years": "ปี",
-  "The point at which the villa could have paid for itself. It is a forecast from the rental programme figures, not a promise.": "ระยะเวลาที่วิลล่าอาจคืนทุนได้ ตัวเลขนี้เป็นการคาดการณ์จากตัวเลขของโครงการให้เช่า ไม่ใช่คำสัญญา"
+  "The point at which the villa could have paid for itself. It is a forecast from the rental programme figures, not a promise.": "ระยะเวลาที่วิลล่าอาจคืนทุนได้ ตัวเลขนี้เป็นการคาดการณ์จากตัวเลขของโครงการให้เช่า ไม่ใช่คำสัญญา",
+  "Map of Phuket": "แผนที่ภูเก็ต"
 }

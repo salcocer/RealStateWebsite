@@ -115,6 +115,10 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 /* ---------- Header ---------- */
 .site-header { position: fixed; z-index: 80; top: 0; left: 0; right: 0; padding: 18px 0; transition: background-color .4s, padding .4s var(--ease), box-shadow .4s; color: var(--on-dark); }
 .site-header.is-solid, .site-header--solid, .menu-open .site-header { background: rgba(253, 251, 247, .9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: var(--ink); padding: 12px 0; box-shadow: 0 1px 0 var(--line); }
+/* Over a hero photo the header sits on a soft dark gradient, so the links stand out from a bright sky. It fades
+   away once the header turns solid. */
+.site-header::before { content: ""; position: absolute; z-index: -1; inset: 0 0 -32px; background: linear-gradient(180deg, rgba(36, 26, 18, .5), rgba(36, 26, 18, .22) 60%, rgba(36, 26, 18, 0)); pointer-events: none; transition: opacity .4s; }
+.site-header.is-solid::before, .site-header--solid::before, .menu-open .site-header::before { opacity: 0; }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: calc(var(--container) + 2 * var(--gutter)); }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
 .brand__mark { width: 30px; height: 30px; border-radius: 8px; background: currentColor; display: grid; place-items: center; }
@@ -151,10 +155,16 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 /* ---------- Hero ---------- */
 .hero { position: relative; min-height: max(720px, 100svh); overflow: hidden; color: var(--on-dark); text-align: center; background: #557f7c; }
 .hero__media { position: absolute; inset: -6% 0 0; will-change: transform; }
-.hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 70%; }
+.hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 70%; }
+/* Slideshow: until the script starts it, only the first photo shows. Then each new photo fades in over the
+   one before, which stays underneath until the fade is done. */
+.hero__media img + img { display: none; }
+.hero__media.is-playing img { display: block; opacity: 0; transition: opacity 1.8s cubic-bezier(.45, 0, .25, 1); will-change: opacity; }
+.hero__media.is-playing img.is-on { opacity: 1; z-index: 2; }
+.hero__media.is-playing img.is-under { opacity: 1; z-index: 1; transition: none; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(36, 26, 18, .32), rgba(36, 26, 18, 0) 42%); pointer-events: none; }
 .hero__content { position: relative; z-index: 2; padding-top: clamp(150px, 22vh, 210px); }
-.hero__address { font-size: 14px; opacity: .95; margin-bottom: 10px; }
+.hero__address { font-size: 14px; opacity: .95; margin-bottom: 10px; text-shadow: 0 1px 2px rgba(36, 26, 18, .45), 0 2px 16px rgba(36, 26, 18, .55); }
 .hero h1 { color: var(--on-dark); text-shadow: 0 2px 24px rgba(36, 26, 18, .25); }
 .hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 36px; }
 .stat-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
@@ -429,16 +439,9 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .btn--ghost { background: transparent; border-color: rgba(251, 249, 244, .3); color: var(--on-dark); }
 .btn--ghost:hover { border-color: var(--on-dark); }
 .footer__label { display: block; font-size: 13px; letter-spacing: .02em; color: var(--f-muted); }
-.footer__list .footer__label { padding-bottom: 14px; }
-.footer__villas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--f-line); }
-.footer__villa { display: grid; grid-template-columns: 1fr auto 18px; grid-template-areas: "name price arrow" "meta price arrow"; column-gap: 20px; row-gap: 2px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--f-line); transition: color .3s; }
-.footer__villa-name { grid-area: name; font-size: 20px; font-weight: 500; letter-spacing: -.01em; }
-.footer__villa-meta { grid-area: meta; display: flex; gap: 14px; font-size: 13px; color: var(--f-muted); }
-.footer__villa-price { grid-area: price; font-size: 20px; font-weight: 300; font-variant-numeric: tabular-nums; }
-.footer__villa svg { grid-area: arrow; width: 18px; height: 18px; transition: transform .35s var(--ease); }
-.footer__villas li:last-child .footer__villa { border-bottom: 0; }
-.footer__villa:hover { color: var(--clay); }
-.footer__villa:hover svg { transform: translateX(4px); }
+/* A Google map beside the invitation; the frame shows the ground colour until the map loads */
+.footer__map { position: relative; border-radius: clamp(20px, 2vw, 28px); overflow: hidden; background: var(--espresso); aspect-ratio: 16 / 10; }
+.footer__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .footer__contacts { list-style: none; margin: 0; padding: 32px 0; display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); border-top: 1px solid var(--f-line); }
 .footer__item { display: grid; grid-template-columns: 40px 1fr; column-gap: 14px; row-gap: 4px; align-items: start; font-size: 16px; line-height: 1.35; overflow-wrap: anywhere; }
 .footer__item .footer__icon { grid-row: span 2; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--f-line); display: grid; place-items: center; color: var(--clay); }
@@ -455,8 +458,12 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .footer__social a:hover { background: var(--card); color: var(--ink); }
 .footer__social svg { width: 16px; height: 16px; }
 @media (min-width: 900px) {
-  .footer__top { grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: start; }
-  .footer__list { padding-top: 6px; }
+  /* The invitation takes 55% of the width and the map 45%. The map is as tall as the invitation: the logo
+     is level with its top edge and the buttons with its bottom edge. */
+  .footer__top { grid-template-columns: minmax(0, 11fr) minmax(0, 9fr); gap: 56px; align-items: stretch; }
+  .footer__intro { display: flex; flex-direction: column; }
+  .footer__title, .footer__actions { margin-top: auto; }
+  .footer__map { aspect-ratio: auto; }
 }
 /* On desktop the footer is exactly one screen below the scrolled header, so all of it shows when you reach
    the end of the page or follow a Contact link. Spare height is shared above and below the invitation. */
@@ -466,7 +473,6 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
   .footer .brand { margin-bottom: clamp(14px, 3vh, 28px); }
   .footer__title { font-size: clamp(36px, min(4.4vw, 7vh), 60px); }
   .footer__text { margin: clamp(10px, 2vh, 16px) 0 clamp(16px, 3vh, 28px); }
-  .footer__villa { padding: clamp(10px, 1.8vh, 16px) 0; }
   .footer__contacts { padding: clamp(20px, 4vh, 32px) 0; }
 }
 

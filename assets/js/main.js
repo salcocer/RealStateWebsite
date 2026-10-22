@@ -197,6 +197,34 @@
     go(0); start();
   });
 
+  /* Hero slideshow. The first photo shows straight away; once the page has loaded the others load in the
+     background, and every 4 seconds the next one fades in slowly over the current one. Each photo is decoded
+     before its fade starts so the fade never stutters, and a photo that is still loading holds its turn, so
+     the order never changes. Off when the visitor asks for reduced motion. */
+  var show = $("[data-slideshow]");
+  if (show && !reduce) {
+    var slides = $$("img", show), cur = 0, busy = false;
+    var swap = function (next) {
+      slides.forEach(function (s) { s.classList.remove("is-under"); });
+      slides[cur].classList.remove("is-on");
+      slides[cur].classList.add("is-under");
+      slides[next].classList.add("is-on");
+      cur = next;
+      busy = false;
+    };
+    var play = function () {
+      show.classList.add("is-playing");
+      setInterval(function () {
+        var next = (cur + 1) % slides.length, img = slides[next];
+        if (busy || document.hidden || !img.complete || !img.naturalWidth) return;
+        busy = true;
+        if (img.decode) img.decode().then(function () { swap(next); }, function () { swap(next); });
+        else swap(next);
+      }, 4000);
+    };
+    if (document.readyState === "complete") play(); else window.addEventListener("load", play);
+  }
+
   /* Map pins take turns being highlighted */
   var pins = $$(".pin:not(.pin--home)");
   if (pins.length && !reduce) {
@@ -257,6 +285,8 @@
   /* Entrances */
   var watch = $$(".reveal, [data-split], [data-in], [data-count]");
   if ("IntersectionObserver" in window) {
+    // Counters start from zero and count up as they come into view; without the observer they keep their final figure.
+    if (!reduce) $$("[data-count]").forEach(function (el) { el.textContent = (0).toFixed((el.getAttribute("data-count").split(".")[1] || "").length); });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
