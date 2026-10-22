@@ -148,9 +148,12 @@
     try { localStorage.setItem("verdi-currency", cur); } catch (e) {}
   }
   $$("[data-currency]").forEach(function (b) { b.addEventListener("click", function () { setCurrency(b.getAttribute("data-currency")); }); });
-  var saved = "THB";
-  try { saved = localStorage.getItem("verdi-currency") || "THB"; } catch (e) {}
-  setCurrency(RATES[saved] ? saved : "THB");
+  // The currency buttons are commented out in the header for now, so ignore any saved choice and show baht.
+  // To bring them back, uncomment the buttons and restore these three lines in place of setCurrency("THB").
+  // var saved = "THB";
+  // try { saved = localStorage.getItem("verdi-currency") || "THB"; } catch (e) {}
+  // setCurrency(RATES[saved] ? saved : "THB");
+  setCurrency("THB");
 
   /* Tabs (floor plans) */
   $$("[role='tablist']").forEach(function (list) {

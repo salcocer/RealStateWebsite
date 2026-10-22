@@ -8,7 +8,7 @@ Plain HTML and CSS with one script. No build step and no framework, so it can be
 
 | Page | File |
 | --- | --- |
-| Home: everything in one page (villas, gallery and map, floor plans, investment, buyer questions, construction progress band and dated updates; the footer holds the contact details) | `index.html` |
+| Home: everything in one page (villas, gallery and map, floor plans, buyer questions, construction progress band and dated updates; the footer holds the contact details) | `index.html` |
 | Villa Luna, Aria, Medina | `villas/luna.html`, `villas/aria.html`, `villas/medina.html` |
 | Not found | `404.html` |
 
@@ -43,11 +43,11 @@ It rebuilds both languages and lists any text that has no translation yet (that 
 
 Version 2 follows the layout and motion of the OneArc template much more closely, in Verdi's colours and with Verdi's content:
 
-- Full-height hero with the address, a large title, two buttons and four stat cards along the bottom edge.
+- Full-height hero with the address, a large title, two buttons and a "Some numbers about Verdi" card along the bottom edge, whose figures roll up into place.
 - "Why choose Verdi" with a card slider over the pool photo, a pill marquee, and giant section titles.
 - Villas as sticky cards that stack and recede as you scroll.
 - A gallery where one image widens as you scroll or hover, followed by an illustrated map whose pins take turns lighting up.
-- Floor-plan tabs, a wide parallax band, investment cards with progress bars, an inquiry block with contact details beside the form, rolling key figures and a buyer questions accordion.
+- Floor-plan tabs, a wide parallax band, an inquiry block with contact details beside the form and a buyer questions accordion.
 - A dark footer with large contact links, a header that stays in place, and floating "Book A Viewing / WhatsApp / Brochure" buttons.
 
 Headings blur in word by word, numbers count up, and hero images move with a light parallax. Type is Jost (headings at weight 500 with tight tracking) with Cormorant Garamond kept for the wordmark and pull quotes. OneArc's testimonials are replaced with buyer questions until Verdi has real reviews.
