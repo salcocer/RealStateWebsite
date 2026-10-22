@@ -389,8 +389,6 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .footer__follow a { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(251, 249, 244, .25); display: grid; place-items: center; transition: background-color .3s, color .3s; }
 .footer__follow a:hover { background: var(--card); color: var(--ink); }
 .footer__follow svg { width: 16px; height: 16px; }
-.footer .giant { margin-bottom: 96px; }
-.footer .giant p { color: #bdb0a2; }
 .footer__side { display: grid; gap: 40px; }
 .catch--dark h3 { color: var(--on-dark); }
 .catch--dark .catch__block { color: #bdb0a2; border-color: rgba(251, 249, 244, .16); max-width: none; }
@@ -401,6 +399,24 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .footer__links { display: flex; flex-wrap: wrap; gap: 28px; }
 .footer__links a { text-decoration: none; color: var(--on-dark); }
 .footer__links a:hover { color: var(--clay); }
+/* On desktop the footer is exactly one screen below the scrolled header, so the whole of it shows when you reach
+   the end of the page or follow a Contact link. The photo takes whatever height is left. */
+@media (min-width: 900px) and (min-height: 640px) {
+  .footer { height: calc(100vh - 70px); height: calc(100dvh - 70px); min-height: 0; padding-top: clamp(24px, 5vh, 48px); scroll-margin-top: -26px; }
+  .footer > .container { min-height: 0; }
+  .footer__grid { flex: 1; min-height: 0; margin: 0; align-items: stretch; grid-template-rows: minmax(0, 1fr); }
+  .footer__grid > div:first-child { align-self: center; }
+  .footer .brand { margin-bottom: 16px; }
+  .footer__lead { margin-bottom: clamp(12px, 2.6vh, 24px); font-size: clamp(20px, min(2.2vw, 3.1vh), 28px); }
+  .footer__big { padding: clamp(12px, 2.4vh, 24px) 0; font-size: clamp(22px, min(2.8vw, 4.4vh), 40px); }
+  .footer__follow { padding-top: clamp(14px, 2.4vh, 24px); }
+  .footer__side { display: flex; flex-direction: column; gap: 24px; min-height: 0; }
+  .footer .catch h3 { margin-bottom: 12px; }
+  .footer .catch__block { padding: clamp(8px, 1.4vh, 12px) 0; }
+  .footer__photo { flex: 1; min-height: 0; }
+  .footer__photo img { height: 100%; aspect-ratio: auto; }
+  .footer__bottom { margin-top: clamp(12px, 2.6vh, 24px); padding: clamp(14px, 2.2vh, 20px) 0; }
+}
 
 /* Floating action cluster (OneArc's bottom-right buttons) and mobile bar */
 .float-cta { position: fixed; right: 20px; bottom: 20px; z-index: 60; display: none; flex-direction: column; align-items: flex-end; gap: 8px; opacity: 0; transform: translateY(16px); transition: opacity .4s, transform .5s var(--ease); pointer-events: none; }
