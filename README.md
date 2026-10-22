@@ -8,14 +8,11 @@ Plain HTML and CSS with one script. No build step and no framework, so it can be
 
 | Page | File |
 | --- | --- |
-| Home | `index.html` |
-| Villa Aria, Cadence, Sonata | `villas/aria.html`, `villas/cadence.html`, `villas/sonata.html` |
-| Investment and ownership | `invest.html` |
-| Construction progress | `progress.html` |
-| Contact | `contact.html` |
+| Home: everything in one page (villas, gallery and map, floor plans, investment, buyer questions, construction progress band and dated updates; the footer holds the contact details) | `index.html` |
+| Villa Luna, Aria, Medina | `villas/luna.html`, `villas/aria.html`, `villas/medina.html` |
 | Not found | `404.html` |
 
-Every page except `404.html` also exists in Russian under `ru/` and in Thai under `th/` (for example `ru/villas/aria.html`). The EN / RU / TH links in the header switch between them.
+Every page except `404.html` also exists in Russian under `ru/` and in Thai under `th/` (for example `ru/villas/luna.html`). The EN / RU / TH links in the header switch between them.
 
 ## Structure
 
@@ -64,25 +61,33 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-## Placeholder content to confirm before launch
+## Content: confirmed facts and placeholders
 
-These are working values so the layout can be reviewed. Each needs confirming or replacing by the Verdi team.
+The villa facts come from the public listings collected in the project's `VERDI.md` and were confirmed by the Verdi team on 22 October 2026:
 
-- Villa names (Aria, Cadence, Sonata are working names), bedrooms, built and plot areas, pool sizes, prices and status.
-- Room areas on the villa pages and the home-page gallery.
-- The rental programme: the 7% a year for two years comes from the Villacarte listing and is unverified. Who pays it, what it is calculated on and what follows after year two are marked "to be confirmed".
-- Payment stages and the reservation deposit amount.
-- Construction log entries and dates on `progress.html`.
-- Drive times on the map and the figures in "Some numbers about Verdi" (ceiling height, distances).
-- Construction percentages in the progress bars.
-- Buyer questions and answers.
-- Contact details: email, phone, WhatsApp and Telegram links are placeholders. Only the Instagram handle is real.
-- Developer legal name and licence number for the footer.
-- All images are illustrations. Replace files in `assets/img/` with photos and renders (keep the file names, or update the `src` attributes).
+| Villa | Bedrooms | Bathrooms | Built | Plot | Price |
+| --- | --- | --- | --- | --- | --- |
+| Luna (Verdi I) | 2 | 2 | 137 m² | 174 m² | ฿9,500,000 |
+| Aria (Verdi II) | 2 | 3 | 155 m² | 200 m² | ฿9,900,000 |
+| Medina (Verdi III) | 3 | 2 | 218 m² | 325 m² | ฿11,900,000 |
+
+Also confirmed: developer Opera Estate; Si Sunthon, Thalang; freehold ownership, including for foreign buyers; payment plan 30% at contract, 65% during construction, 5% at transfer; rental return 6% a year, shown as a projection and never as a guarantee. Distances (1.6 km to Robinson Lifestyle, 3.9 km to Thalang Hospital, 6.7 km to UWC Thailand, 9 km to Bang Tao, about 20 minutes to the airport) come from the same listings. The site deliberately shows no completion date or build duration.
+
+Still placeholders, to confirm or replace before launch:
+
+- Villa status: all three show "Available".
+- Room sizes, pool sizes and furniture package (not published; the pages say "to be confirmed" or "on request").
+- The rental programme's management company, fees and owner-use terms (not shown on the site yet).
+- Construction log entries and dates in the progress section of the home page.
+- The materials chips on the villa cards (Wood, Natural stone, Wood and stone) are a reading of the listings' "wood and natural stone" finishes, not a per-villa specification.
+- Contact details: email, phone, WhatsApp and Telegram links are placeholders. Only the Instagram handle is real. Opening hours and "viewings every day" are working copy.
+- Licence number for the footer.
+- All images are illustrations. Replace files in `assets/img/` with photos and renders (keep the file names, or update the `src` attributes). The villa drawings are generic and not drawn from the real plans, and the map pins are placed for legibility, not to scale.
 - Currency rates in `assets/js/main.js` (`RATES`) are approximate.
-- The Russian and Thai translations were written without a native-speaker review. Have both checked before launch, especially the ownership and rental terms on `invest.html`.
+- The Russian and Thai translations were written without a native-speaker review. Have both checked before launch, especially the ownership and rental terms.
+- Freehold for foreign buyers is shown as confirmed. Have a Thai lawyer review the wording in the investment section and buyer questions on the home page before launch.
 - Once the site has its final domain, add `<link rel="alternate" hreflang="…">` tags with full URLs so search engines pair the three language versions.
 
-## Forms
+## Header links
 
-The viewing forms have no backend yet: they confirm in place. They carry `data-netlify="true"`, so on Netlify they will be collected automatically once `action="#"` is removed. On another host, point `action` at a form service such as Formspree.
+The site is one page. The header links (Home, Villas, Progress, Contact) point to sections of `index.html` (`#villas`, `#progress`, `#contact`); from a villa page they lead back to the same sections. Every section of the home page names the header link it belongs to in `data-nav`, and `main.js` moves the underline to that link as you scroll. On a villa page the Villas link stays underlined. Links to a section of the page already open scroll smoothly instead of reloading it. Contact, Schedule A Visit, Book A Viewing and Request Brochure all lead to the footer (`#contact`), which holds the contact details. There is no contact form.

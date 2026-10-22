@@ -25,6 +25,7 @@
   var header = $(".site-header");
   var floatCta = $(".float-cta");
   var bar = $(".enquiry-bar");
+  var footer = $(".footer");
 
   /* Scroll-linked pieces */
   var heroMedia = $$(".hero__media, .page-hero__media");
@@ -38,11 +39,44 @@
     expandItems.forEach(function (it, j) { it.classList.toggle("is-wide", j === i); });
   }
 
+  /* Header links. Each page marks its own link; on the home page the mark follows the section in view
+     (sections name their link in data-nav). Links to the page already open scroll instead of reloading. */
+  var navLinks = $$(".nav a, .mobile-menu__link");
+  var spots = $$("[data-nav]");
+  var spotted = null;
+  function spy() {
+    if (!spots.length) return;
+    var line = window.innerHeight * 0.4, active = spots[0];
+    spots.forEach(function (s) { if (s.getBoundingClientRect().top <= line) active = s; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) active = spots[spots.length - 1];
+    var href = active.getAttribute("data-nav");
+    if (href === spotted) return;
+    spotted = href;
+    navLinks.forEach(function (a) {
+      if (a.getAttribute("href") === href) a.setAttribute("aria-current", href === "index.html" ? "page" : "location");
+      else a.removeAttribute("aria-current");
+    });
+  }
+  function page(path) { return path.replace(/index\.html$/, ""); }
+  $$("a[href]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      if (a.host !== location.host || page(a.pathname) !== page(location.pathname) || a.search !== location.search) return;
+      var target = a.hash ? document.getElementById(a.hash.slice(1)) : null;
+      if (a.hash && !target) return;
+      e.preventDefault();
+      if (target) target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+      else window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      if (history.replaceState) history.replaceState(null, "", a.hash || location.pathname);
+    });
+  });
+
   function onScroll() {
     var y = window.scrollY;
     var vh = window.innerHeight;
     if (header && !header.classList.contains("site-header--solid")) header.classList.toggle("is-solid", y > 40);
-    var show = y > vh * 0.7;
+    spy();
+    /* The quick-contact buttons step aside once the footer, which holds the contact details, comes into view. */
+    var show = y > vh * 0.7 && (!footer || footer.getBoundingClientRect().top > vh * 0.75);
     if (floatCta) floatCta.classList.toggle("is-visible", show);
     if (bar) bar.classList.toggle("is-visible", show);
     if (reduce) return;
@@ -215,25 +249,6 @@
       if (e.key === "ArrowRight") show(idx + 1);
       if (e.key === "ArrowLeft") show(idx - 1);
     });
-  }
-
-  /* Viewing forms: no backend yet, so confirm in place. */
-  $$("form[data-viewing]").forEach(function (f) {
-    f.addEventListener("submit", function (e) {
-      if (f.getAttribute("action") && f.getAttribute("action") !== "#") return;
-      e.preventDefault();
-      if (!f.checkValidity()) { f.reportValidity(); return; }
-      f.classList.add("is-sent");
-    });
-  });
-
-  /* Brochure links arrive on the contact page as ?brochure=<villa> */
-  var bro = /[?&]brochure=([\w-]+)/.exec(location.search);
-  var msg = $("#f-msg");
-  if (bro && msg) {
-    msg.value = msg.getAttribute("data-brochure");
-    var sel = $("#f-villa");
-    if (sel) Array.prototype.forEach.call(sel.options, function (o) { if (o.value.toLowerCase() === bro[1]) sel.value = o.value; });
   }
 
   /* Entrances */

@@ -24,8 +24,8 @@ from html import escape, unescape
 from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PAGES = ["index.html", "invest.html", "progress.html", "contact.html",
-         "villas/aria.html", "villas/cadence.html", "villas/sonata.html"]
+PAGES = ["index.html",
+         "villas/luna.html", "villas/aria.html", "villas/medina.html"]
 LANGS = {
     "ru": {},
     # Jost has no Thai letters, so Thai pages also load a Thai face (see :lang(th) in site.css).
