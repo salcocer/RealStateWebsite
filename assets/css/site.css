@@ -157,7 +157,6 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .hero__address { font-size: 14px; opacity: .95; margin-bottom: 10px; }
 .hero h1 { color: var(--on-dark); text-shadow: 0 2px 24px rgba(36, 26, 18, .25); }
 .hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 36px; }
-.hero__stats { position: absolute; z-index: 3; left: 0; right: 0; bottom: 64px; }
 .stat-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 @media (min-width: 900px) { .stat-cards { grid-template-columns: repeat(4, 1fr); } }
 .stat-card { background: var(--card); color: var(--ink); border-radius: var(--radius); padding: 20px 20px 18px; text-align: left; }
@@ -170,21 +169,9 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
   .stat-card__value { font-size: 28px; white-space: nowrap; }
   .stat-card__foot { margin-top: 16px; padding-top: 12px; font-size: 13px; }
 }
-/* The facts strip on a card at the foot of the hero; grid gaps draw the dividers */
-.hero__facts { background: var(--card); color: var(--ink); border-radius: var(--radius-lg); overflow: hidden; padding-top: 22px; }
-.hero__facts .facts__title { margin-bottom: 6px; }
-.hero__facts .facts { border-left: 0; gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
-.hero__facts .fact { border: 0; background: var(--card); min-height: 0; padding: 22px 16px 24px; gap: 16px; }
-.hero__facts .fact__value { font-size: clamp(40px, 4.2vw, 58px); }
-@media (max-width: 899px) {
-  .hero__facts .fact:last-child { grid-column: 1 / -1; }
-  .hero__facts .fact { padding: 16px 12px 18px; gap: 12px; }
-  .hero__facts .fact__label { font-size: 14px; }
-}
 @media (max-width: 899px) {
   .hero { min-height: auto; padding-bottom: 24px; }
   .hero__content { padding-bottom: 46vh; }
-  .hero__stats { position: relative; bottom: auto; margin-top: -28vh; }
 }
 
 /* ---------- Why choose (two columns, card slider over an image) ---------- */
@@ -358,6 +345,24 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 @media (max-width: 899px) { .fact { border-bottom: 1px solid var(--line); } }
 .rule { height: 1px; background: var(--line); margin-top: 96px; }
 
+/* ---------- Investment figures and payment steps ---------- */
+.invest-section .h2 { max-width: 15em; margin-bottom: 56px; }
+/* The icon sits beside the title to keep the cards short enough for one screen */
+.invest-cards .i-card { grid-template-columns: auto 1fr; align-items: center; column-gap: 14px; }
+.invest-cards .i-card > :not(.i-card__icon):not(h3) { grid-column: 1 / -1; }
+.i-card__figure { display: flex; align-items: baseline; gap: 10px; }
+.i-card__figure strong { font-size: clamp(44px, 4.4vw, 60px); font-weight: 500; letter-spacing: -.04em; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.invest-steps { list-style: none; margin: 0; padding: 0; }
+.invest-steps li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.5; color: var(--muted); }
+.invest-steps strong { font-size: 24px; font-weight: 500; letter-spacing: -.03em; color: var(--ink); font-variant-numeric: tabular-nums; }
+@media (min-width: 900px) and (min-height: 700px) {
+  .invest-section > .container { justify-content: center; }
+  .invest-section .i-card { padding: clamp(20px, 3.2vh, 28px); gap: clamp(8px, 1.6vh, 14px); }
+  .invest-section .i-card__figure strong { font-size: clamp(36px, min(4.4vw, 6.4vh), 60px); }
+  .invest-section .invest-steps li { grid-template-columns: 56px 1fr; padding: clamp(8px, 1.4vh, 12px) 0; font-size: clamp(14px, 2vh, 15px); line-height: 1.45; }
+  .invest-section .i-card p { font-size: clamp(14px, 2vh, 15px); }
+}
+
 /* ---------- Questions (in place of reviews) ---------- */
 .qa-grid { display: grid; gap: 40px; align-items: start; }
 @media (min-width: 900px) { .qa-grid { grid-template-columns: 1fr 1fr; gap: 64px; } }
@@ -382,6 +387,29 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .qa[open] .qa__plus { transform: rotate(45deg); background: var(--espresso); color: var(--on-dark); }
 .qa__body { padding: 0 46px 22px 0; color: var(--muted); font-size: 15px; }
 .qa[open] .qa__body { animation: planIn .5s var(--ease); }
+.qa-section .h2 { max-width: 11em; margin-bottom: 56px; }
+/* On desktop the questions take the rest of the screen: only one answer opens at a time and the photo takes
+   whatever height is left. */
+@media (min-width: 900px) and (min-height: 700px) {
+  .qa-section .h2 { max-width: none; }
+  .qa-section .qa-grid { flex: 1; min-height: 0; align-items: stretch; }
+  .qa-section .qa-side { grid-template-rows: auto minmax(0, 1fr); min-height: 0; }
+  .qa-section .qa-card { padding: clamp(16px, 2.4vh, 24px); }
+  .qa-section .qa-card strong { font-size: clamp(24px, 3.6vh, 32px); }
+  .qa-section .qa-photo { aspect-ratio: auto; min-height: 0; }
+  .qa-section .qa summary { padding: clamp(10px, 1.8vh, 22px) 0; font-size: clamp(16px, 2.3vh, 19px); }
+  .qa-section .qa__body { padding-bottom: clamp(10px, 1.8vh, 22px); }
+}
+
+/* ---------- One-screen sections ----------
+   On desktop these fill exactly one screen below the scrolled header, like the footer, so a header link lands
+   with all of the section in view. Spacing and type scale with the height. */
+@media (min-width: 900px) and (min-height: 700px) {
+  .section--screen { height: calc(100vh - 70px); height: calc(100dvh - 70px); padding: clamp(32px, 6vh, 80px) 0; scroll-margin-top: -26px; display: flex; flex-direction: column; }
+  .section--screen > .container { width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .section--screen .eyebrow { margin-bottom: clamp(12px, 2vh, 20px); }
+  .section--screen .h2 { font-size: clamp(30px, min(3.6vw, 5.2vh), 48px); margin-bottom: clamp(20px, 4vh, 56px); }
+}
 
 /* ---------- Footer ----------
    Three bands: an invitation with the two quickest ways to reach us beside the villa list, four contact
