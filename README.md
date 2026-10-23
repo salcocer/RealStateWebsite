@@ -90,6 +90,7 @@ Still placeholders, to confirm or replace before launch:
 - Licence number for the footer.
 - The home hero slideshow uses photos and renders; all other images are illustrations. Replace files in `assets/img/` with photos and renders (keep the file names, or update the `src` attributes). The villa drawings are generic and not drawn from the real plans, and the map pins are placed for legibility, not to scale.
 - The currency buttons (฿ / US$ / € / ₽) are commented out in the header and menu, so every price shows in baht. To bring them back, uncomment them in the English pages, restore the saved-currency lines in `assets/js/main.js` and rerun `tools/i18n.py`. Their rates (`RATES`) are approximate.
+- The "V" brand mark beside the Verdi wordmark is commented out in the header and footer of every page, so only the wordmark shows. To bring it back, uncomment it in the English pages and `404.html` and rerun `tools/i18n.py`. Its styles (`.brand__mark` in `site.css`) are still in place.
 - The Russian and Thai translations were written without a native-speaker review. Have both checked before launch, especially the ownership and rental terms.
 - Freehold for foreign buyers is shown as confirmed. Have a Thai lawyer review the wording in the investment section and buyer questions on the home page before launch.
 - Once the site has its final domain, add `<link rel="alternate" hreflang="…">` tags with full URLs so search engines pair the three language versions.
