@@ -213,7 +213,7 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 
 /* ---------- Stacking cards (OneArc "Property") ---------- */
 /* The gap is how far you scroll past a stuck card before the next one slides up over it. */
-.stack { display: grid; gap: clamp(48px, 8vw, 120px); }
+.stack { display: grid; gap: clamp(78px, calc(8vw + 30px), 150px); }
 /* Each home card is two panels: the villa's info and facts on the left (.stack__info), its photo above its floor
    plan on the right (.stack__visual). A card taller than the screen sticks by its bottom edge instead, --clear
    above the screen's foot (clear of the phone enquiry bar), so all of it is seen before the next one covers it.
