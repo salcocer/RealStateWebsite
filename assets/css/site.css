@@ -212,20 +212,32 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 
 /* ---------- Stacking cards (OneArc "Property") ---------- */
 .stack { display: grid; gap: 0; }
-.stack__card { position: sticky; top: calc(96px + var(--i) * 32px); background: var(--card); border-radius: var(--radius); padding: 8px; display: grid; gap: 8px; margin-bottom: 24px; transform-origin: 50% 0; }
-@media (min-width: 900px) { .stack__card { grid-template-columns: 1fr 1.44fr; min-height: 468px; } }
+/* Each card holds the villa (info and photo) above its floor plan and facts. A card taller than the screen
+   sticks by its bottom edge instead, --clear above the screen's foot (clear of the phone enquiry bar), so all of
+   it is seen before the next one covers it. main.js sets --h to the card's height. */
+.stack__card { --top: calc(96px + var(--i) * 32px); --clear: 88px; position: sticky; top: var(--top); top: min(var(--top), calc(100vh - var(--h, 0px) - var(--clear))); top: min(var(--top), calc(100svh - var(--h, 0px) - var(--clear))); background: var(--card); border-radius: var(--radius); padding: 8px; display: grid; gap: 8px; margin-bottom: 24px; transform-origin: 50% 0; }
+@media (min-width: 900px) { .stack__card { grid-template-columns: 1fr 1.44fr; } }
+@media (min-width: 1080px) { .stack__card { --clear: 16px; } }
 .stack__info { background: var(--panel); border-radius: 8px; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; }
 @media (min-width: 900px) { .stack__info { padding: 40px; } }
+/* Villa cards run tighter than the log cards that share these panels, so the whole card fits a laptop screen. */
+@media (min-width: 900px) { .stack__card .stack__info { padding: 32px 36px; gap: 10px; } .stack__card .stack__chips { padding-top: 16px; } }
 .stack__info h3 { font-size: 28px; }
 .stack__info p { color: var(--muted); max-width: 36ch; }
 .stack__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 24px; }
-.stack__price { font-size: 30px; font-weight: 500; letter-spacing: -.02em; color: var(--ink); }
+.stack__price { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -.02em; color: var(--ink); }
 .stack__media { position: relative; border-radius: 8px; overflow: hidden; min-height: 280px; background: var(--clay); }
 .stack__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .stack__card:hover .stack__media img { transform: scale(1.04); }
 .stack__media .status { position: absolute; top: 16px; left: 16px; }
+.stack__plan { background: var(--panel); border-radius: 8px; padding: 16px; display: flex; align-items: center; }
+.stack__plan .planner__plan { width: 100%; }
+.stack__plan .planner__plan img { width: 100%; max-height: clamp(180px, 28vh, 240px); object-fit: contain; }
+.stack__details { background: var(--panel); border-radius: 8px; padding: 24px 20px; display: flex; flex-direction: column; justify-content: center; }
+.stack__details .bullets { margin: 0 0 22px; gap: 10px; }
+@media (min-width: 900px) { .stack__details { padding: 28px 40px; } }
 @media (max-width: 899px) {
-  .stack__card { top: calc(80px + var(--i) * 14px); margin-bottom: 16px; }
+  .stack__card { --top: calc(80px + var(--i) * 14px); margin-bottom: 16px; }
   .stack__media { order: -1; min-height: 0; aspect-ratio: 16 / 10; }
   .stack__info { padding: 22px 20px; gap: 10px; }
   .stack__info h3 { font-size: 24px; }
@@ -244,6 +256,19 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .expand__label { position: absolute; left: 12px; bottom: 12px; display: flex; gap: 6px; flex-wrap: wrap; opacity: 0; transform: translateY(8px); transition: opacity .5s .2s, transform .5s .2s var(--ease); }
 .expand__item.is-wide .expand__label { opacity: 1; transform: none; }
 @media (max-width: 640px) { .expand { height: 360px; } .expand__item.is-wide { flex-grow: 6; } }
+
+/* ---------- Villa overview: photo grid (two small beside one large, then mirrored) ---------- */
+.mosaic { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); grid-template-areas: "a c c" "b c c" "d d e" "d d f"; gap: clamp(8px, 1.4vw, 16px); aspect-ratio: 9 / 8; }
+.mosaic__item { position: relative; min-width: 0; min-height: 0; border-radius: var(--radius); overflow: hidden; background: var(--clay); border: 0; padding: 0; cursor: zoom-in; }
+.mosaic__item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
+.mosaic__item:hover img { transform: scale(1.04); }
+.mosaic__item:nth-child(1) { grid-area: a; }
+.mosaic__item:nth-child(2) { grid-area: b; }
+.mosaic__item:nth-child(3) { grid-area: c; }
+.mosaic__item:nth-child(4) { grid-area: d; }
+.mosaic__item:nth-child(5) { grid-area: e; }
+.mosaic__item:nth-child(6) { grid-area: f; }
+@media (max-width: 640px) { .mosaic { aspect-ratio: auto; grid-template-columns: 1fr 1fr; grid-template-rows: none; grid-auto-rows: 34vw; grid-template-areas: "c c" "c c" "a b" "d d" "d d" "e f"; } }
 
 /* ---------- Map with place pills ---------- */
 .map { position: relative; margin-top: 72px; }

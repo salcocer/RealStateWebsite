@@ -31,6 +31,13 @@
   var heroMedia = $$(".hero__media, .page-hero__media");
   var bands = $$(".band img");
   var stackCards = $$(".stack__card, .log-card");
+  /* Each card's height, so one taller than the screen can stick by its bottom edge (see .stack__card). */
+  if (window.ResizeObserver) {
+    var sizer = new ResizeObserver(function (entries) {
+      entries.forEach(function (e) { e.target.style.setProperty("--h", e.target.offsetHeight + "px"); });
+    });
+    stackCards.forEach(function (c) { sizer.observe(c); });
+  }
   var expand = $("[data-expand]");
   var expandItems = expand ? $$(".expand__item", expand) : [];
   var hoverIdx = -1;
