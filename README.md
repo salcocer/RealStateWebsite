@@ -8,7 +8,7 @@ Plain HTML and CSS with one script. No build step and no framework, so it can be
 
 | Page | File |
 | --- | --- |
-| Home: everything in one page (villas, gallery, floor plans, location and map, investment, buyer questions; the footer holds the contact details. The construction progress band and dated updates are commented out for now) | `index.html` |
+| Home: everything in one page (villas with their floor plans, gallery, location and map, investment, buyer questions; the footer holds the contact details. The construction progress band and dated updates are commented out for now) | `index.html` |
 | Villa Luna, Cadence, Medina | `villas/luna.html`, `villas/aria.html` (Villa Cadence, formerly Aria; the file keeps its old name so existing links still work), `villas/medina.html` |
 | Not found | `404.html` |
 
@@ -16,9 +16,9 @@ Every page except `404.html` also exists in Russian under `ru/` and in Thai unde
 
 ## Structure
 
-- `assets/css/site.css`: colour and type tokens, components (buttons, chips, stat cards, stacking cards, planner tabs, forms, footer) and page layouts.
+- `assets/css/site.css`: colour and type tokens, components (buttons, chips, stat cards, stacking cards, floor-plan panels, forms, footer) and page layouts.
 - `assets/js/main.js`: all motion and interaction. Every page still reads correctly without it, and motion is switched off for visitors who ask for reduced motion.
-- `assets/img/`: photos and renders (`villa_0` to `villa_6`; the home hero cycles through `villa_0.jpeg`, `villa_1.jpg`, `villa_1.webp`, `villa_4.webp` and `villa_5.webp`, a new photo every 4 seconds. `villa_1.jpg` is a lighter copy of the 8 MB `villa_1.png`), plus brand-palette illustrations still standing in elsewhere, the floor plans and the illustrated location map. The `-wide` villa drawings have extra sky so page titles sit over it.
+- `assets/img/`: photos and renders (`villa_0` to `villa_7`; the home hero cycles through `villa_0.jpeg`, `villa_1.jpg`, `villa_1.webp`, `villa_4.webp` and `villa_5.webp`, a new photo every 4 seconds, and the Villa overview grid shows `villa_4.webp`, `villa_1.webp`, `villa_5.webp`, `villa_7.jpg`, `villa_3.webp` and `villa_2.jpg`. `villa_1.jpg` is a lighter copy of the 8 MB `villa_1.png`, and `villa_7.jpg` is `vila_2.jpeg` with its white frame cropped off), plus brand-palette illustrations still standing in elsewhere, the floor plans and the illustrated location map. The `-wide` villa drawings have extra sky so page titles sit over it.
 - `i18n/ru.json`, `i18n/th.json`: the Russian and Thai text, keyed by the English text.
 - `tools/i18n.py`: builds `ru/` and `th/` from the English pages and the two translation files.
 
@@ -45,9 +45,9 @@ Version 2 follows the layout and motion of the OneArc template much more closely
 
 - Full-height hero with the address, a large title and two buttons, followed straight away by "Some numbers about Verdi", whose figures roll up into place.
 - "Why choose Verdi" with a card slider over the pool photo, a pill marquee, and giant section titles.
-- Villas as sticky cards that stack and recede as you scroll.
-- A gallery where one image widens as you scroll or hover, then the floor plans, then a Location section with an illustrated map whose pins take turns lighting up. Then investment cards (rental programme, instalment plan, payback period) and buyer questions; on desktop each of these, like the footer, fills exactly one screen below the header (`section--screen` in `site.css`), and only one answer opens at a time.
-- Floor-plan tabs, a wide parallax band, an inquiry block with contact details beside the form and a buyer questions accordion.
+- Villas as sticky cards that stack and recede as you scroll. Each card is two panels: the villa's name, price, chips, key facts and "Book A Visit / Call Us Now" buttons on the left, and its photo above its floor plan on the right (on phones the photo and plan come first). A card taller than the screen (on phones, and on laptops shorter than about 950 px) sticks by its bottom edge instead, so all of it is seen before the next card covers it; `main.js` measures each card's height for this.
+- A Villa overview photo grid (two small photos beside a large one, then the same mirrored; two columns on phones) where each photo opens full size, then a Location section with an illustrated map whose pins take turns lighting up. Then investment cards (rental programme, instalment plan, payback period) and buyer questions; on desktop each of these, like the footer, fills exactly one screen below the header (`section--screen` in `site.css`), and only one answer opens at a time.
+- A wide parallax band, an inquiry block with contact details beside the form and a buyer questions accordion.
 - A dark footer with large contact links and an embedded Google map (for now pinned on the middle of Phuket at 7.95, 98.34; change the `q=` coordinates in the footer `iframe` to point at the villas), a header that stays in place, and floating "Book A Viewing / WhatsApp / Brochure" buttons.
 
 Headings blur in word by word, numbers count up, and hero images move with a light parallax. Type is Jost (headings at weight 500 with tight tracking) with Cormorant Garamond kept for the wordmark and pull quotes. OneArc's testimonials are replaced with buyer questions until Verdi has real reviews.
@@ -90,6 +90,7 @@ Still placeholders, to confirm or replace before launch:
 - Licence number for the footer.
 - The home hero slideshow uses photos and renders; all other images are illustrations. Replace files in `assets/img/` with photos and renders (keep the file names, or update the `src` attributes). The villa drawings are generic and not drawn from the real plans, and the map pins are placed for legibility, not to scale.
 - The currency buttons (฿ / US$ / € / ₽) are commented out in the header and menu, so every price shows in baht. To bring them back, uncomment them in the English pages, restore the saved-currency lines in `assets/js/main.js` and rerun `tools/i18n.py`. Their rates (`RATES`) are approximate.
+- The "V" brand mark beside the Verdi wordmark is commented out in the header and footer of every page, so only the wordmark shows. To bring it back, uncomment it in the English pages and `404.html` and rerun `tools/i18n.py`. Its styles (`.brand__mark` in `site.css`) are still in place.
 - The Russian and Thai translations were written without a native-speaker review. Have both checked before launch, especially the ownership and rental terms.
 - Freehold for foreign buyers is shown as confirmed. Have a Thai lawyer review the wording in the investment section and buyer questions on the home page before launch.
 - Once the site has its final domain, add `<link rel="alternate" hreflang="…">` tags with full URLs so search engines pair the three language versions.

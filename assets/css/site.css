@@ -121,9 +121,10 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .site-header.is-solid::before, .site-header--solid::before, .menu-open .site-header::before { opacity: 0; }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: calc(var(--container) + 2 * var(--gutter)); }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
-.brand__mark { width: 30px; height: 30px; border-radius: 8px; background: currentColor; display: grid; place-items: center; }
+/* The mark is the same everywhere: a white tile with a brown V, over the hero, in the solid header and in the footer.
+   The hairline keeps the tile visible against the pale solid header. */
+.brand__mark { width: 30px; height: 30px; border-radius: 8px; background: var(--on-dark); box-shadow: inset 0 0 0 1px var(--line); display: grid; place-items: center; }
 .brand__mark span { font-family: var(--font-display); font-size: 21px; line-height: 1; color: var(--espresso); margin-top: -2px; }
-.site-header:not(.is-solid):not(.site-header--solid) .brand__mark span { color: var(--espresso); }
 .brand__name { font-size: 21px; font-weight: 500; letter-spacing: -.02em; }
 .nav { display: none; gap: 30px; align-items: center; }
 .nav a { font-size: 15px; text-decoration: none; opacity: .92; position: relative; }
@@ -211,22 +212,38 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 @keyframes marquee { to { transform: translateX(calc(-50% - 20px)); } }
 
 /* ---------- Stacking cards (OneArc "Property") ---------- */
-.stack { display: grid; gap: 0; }
-.stack__card { position: sticky; top: calc(96px + var(--i) * 32px); background: var(--card); border-radius: var(--radius); padding: 8px; display: grid; gap: 8px; margin-bottom: 24px; transform-origin: 50% 0; }
-@media (min-width: 900px) { .stack__card { grid-template-columns: 1fr 1.44fr; min-height: 468px; } }
+.stack { display: grid; gap: clamp(24px, 4vw, 48px); }
+/* Each home card is two panels: the villa's info and facts on the left (.stack__info), its photo above its floor
+   plan on the right (.stack__visual). A card taller than the screen sticks by its bottom edge instead, --clear
+   above the screen's foot (clear of the phone enquiry bar), so all of it is seen before the next one covers it.
+   main.js sets --h to the card's height. */
+.stack__card { --top: calc(96px + var(--i) * 32px); --clear: 88px; position: sticky; top: var(--top); top: min(var(--top), calc(100vh - var(--h, 0px) - var(--clear))); top: min(var(--top), calc(100svh - var(--h, 0px) - var(--clear))); background: var(--card); border-radius: var(--radius); padding: 8px; display: grid; gap: 8px; margin-bottom: 24px; transform-origin: 50% 0; }
+@media (min-width: 900px) { .stack__card { grid-template-columns: 1fr 1.44fr; } }
+@media (min-width: 1080px) { .stack__card { --clear: 16px; } }
 .stack__info { background: var(--panel); border-radius: 8px; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; }
 @media (min-width: 900px) { .stack__info { padding: 40px; } }
+/* Villa cards run tighter than the log cards that share these panels, so the whole card fits a laptop screen. */
+@media (min-width: 900px) { .stack__card .stack__info { padding: 32px 36px; gap: 10px; } .stack__card .stack__chips { padding-top: 16px; } }
 .stack__info h3 { font-size: 28px; }
 .stack__info p { color: var(--muted); max-width: 36ch; }
 .stack__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 24px; }
-.stack__price { font-size: 30px; font-weight: 500; letter-spacing: -.02em; color: var(--ink); }
+.stack__price { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -.02em; color: var(--ink); }
 .stack__media { position: relative; border-radius: 8px; overflow: hidden; min-height: 280px; background: var(--clay); }
 .stack__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .stack__card:hover .stack__media img { transform: scale(1.04); }
 .stack__media .status { position: absolute; top: 16px; left: 16px; }
+.stack__visual { background: var(--panel); border-radius: 8px; display: flex; flex-direction: column; }
+.stack__visual .stack__media { flex: 1 0 auto; border-radius: 8px 8px 0 0; }
+.stack__visual .planner__plan { margin: 16px; }
+.stack__visual .planner__plan img { width: auto; max-height: clamp(180px, 28vh, 240px); margin: 0 auto; }
+.stack__details { margin-top: 10px; padding-top: 24px; border-top: 1px solid var(--line); }
+.stack__details .bullets { margin: 0 0 22px; gap: 10px; }
+@media (min-width: 900px) { .stack__visual .planner__plan { margin: 24px; } }
 @media (max-width: 899px) {
-  .stack__card { top: calc(80px + var(--i) * 14px); margin-bottom: 16px; }
-  .stack__media { order: -1; min-height: 0; aspect-ratio: 16 / 10; }
+  .stack__card { --top: calc(80px + var(--i) * 14px); margin-bottom: 16px; }
+  .stack__media, .stack__visual { order: -1; }
+  .stack__media { min-height: 0; aspect-ratio: 16 / 10; }
+  .stack__details { margin-top: 6px; padding-top: 18px; }
   .stack__info { padding: 22px 20px; gap: 10px; }
   .stack__info h3 { font-size: 24px; }
   .stack__price { font-size: 24px; }
@@ -244,6 +261,19 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .expand__label { position: absolute; left: 12px; bottom: 12px; display: flex; gap: 6px; flex-wrap: wrap; opacity: 0; transform: translateY(8px); transition: opacity .5s .2s, transform .5s .2s var(--ease); }
 .expand__item.is-wide .expand__label { opacity: 1; transform: none; }
 @media (max-width: 640px) { .expand { height: 360px; } .expand__item.is-wide { flex-grow: 6; } }
+
+/* ---------- Villa overview: photo grid (two small beside one large, then mirrored) ---------- */
+.mosaic { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); grid-template-areas: "a c c" "b c c" "d d e" "d d f"; gap: clamp(8px, 1.4vw, 16px); aspect-ratio: 9 / 8; }
+.mosaic__item { position: relative; min-width: 0; min-height: 0; border-radius: var(--radius); overflow: hidden; background: var(--clay); border: 0; padding: 0; cursor: zoom-in; }
+.mosaic__item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
+.mosaic__item:hover img { transform: scale(1.04); }
+.mosaic__item:nth-child(1) { grid-area: a; }
+.mosaic__item:nth-child(2) { grid-area: b; }
+.mosaic__item:nth-child(3) { grid-area: c; }
+.mosaic__item:nth-child(4) { grid-area: d; }
+.mosaic__item:nth-child(5) { grid-area: e; }
+.mosaic__item:nth-child(6) { grid-area: f; }
+@media (max-width: 640px) { .mosaic { aspect-ratio: auto; grid-template-columns: 1fr 1fr; grid-template-rows: none; grid-auto-rows: 34vw; grid-template-areas: "c c" "c c" "a b" "d d" "d d" "e f"; } }
 
 /* ---------- Map with place pills ---------- */
 .map { position: relative; margin-top: 72px; }
@@ -428,7 +458,6 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .footer > .container { flex: 1; display: flex; flex-direction: column; }
 .footer a { text-decoration: none; }
 .footer .brand { color: var(--on-dark); margin-bottom: 28px; }
-.footer .brand__mark span { color: var(--night); }
 .footer__top { display: grid; gap: 48px; padding-bottom: 48px; }
 .footer__title { font-size: clamp(36px, 4.4vw, 60px); font-weight: 500; letter-spacing: -.035em; line-height: 1; color: var(--on-dark); max-width: 11em; }
 .footer__text { color: var(--f-muted); font-size: 16px; max-width: 30em; margin: 16px 0 28px; }
@@ -529,7 +558,7 @@ html:lang(ru) .spec :is(th, td) { hyphens: auto; }
 .terms li span:first-child { color: var(--muted); }
 .terms li span:last-child { text-align: right; color: var(--ink); }
 
-.log { display: grid; gap: 0; }
+.log { display: grid; gap: clamp(24px, 4vw, 48px); }
 .log-card { position: sticky; top: calc(96px + var(--i) * 32px); margin-bottom: 24px; background: var(--card); border-radius: var(--radius); padding: 8px; display: grid; gap: 8px; }
 @media (min-width: 900px) { .log-card { grid-template-columns: 1fr 1.44fr; min-height: 420px; } }
 .log-photos { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; min-height: 280px; }
